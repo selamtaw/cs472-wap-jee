@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,18 +53,19 @@
             <h3>Thank You! Your message has been received as follows:</h3>
         </div>
         <div class="card-body">
-            <h4 class="card-title">Name: John</h4>
-            <h4 class="card-subtitle mb-2 text-muted">Gender: Male</h4>
-            <h4 class="card-subtitle mb-2 text-muted">Category: Category</h4>
-            <h4 class="card-text">Message: lorem ipusm</h4>
+            <h4 class="card-title">Name: ${customerMessage.name}</h4>
+            <h4 class="card-subtitle mb-2 text-muted">Gender: ${customerMessage.gender}</h4>
+            <h4 class="card-subtitle mb-2 text-muted">Category: ${customerMessage.category}</h4>
+            <h4 class="card-text">Message: ${customerMessage.message}</h4>
 
-            <p>Please feel free to <a href="/ContactUs">contact us</a> again</p>
+            <p>Please feel free to <a href="${pageContext.request.contextPath}/ContactUs">contact us</a> again</p>
         </div>
 
     </div>
     <div style="padding: 2%;">
-        <span style="float: left;">Hit Count cor this page: </span>
-        <span style="float: right;">Total Hit Count for the entire WebApp: </span>
+        hit count = ${hitCount}
+        <span style="float: left;">Hit Count per this page: ${(hitCount != null) ? hitCount : "n/a"}</span>
+        <span style="float: right;">Total Hit Count for the entire WebApp: ${(totalHitCount != null) ? totalHitCount : "n/a"} </span>
     </div>
 </div>
 

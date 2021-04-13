@@ -1,4 +1,4 @@
-package com.example.lab_12;
+package com.carl.wap.lab.mvc.controller;
 
 
 import jakarta.servlet.*;

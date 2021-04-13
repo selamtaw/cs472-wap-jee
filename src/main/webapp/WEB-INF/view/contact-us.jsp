@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Contact Us</title>
 
 </head>
 <body>
@@ -22,13 +25,13 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="#"> Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="ContactUs">Contact Us</a>
             </li>
         </ul>
@@ -41,11 +44,17 @@
 <div class="jumbotron container">
     <h1 class="display-6">Customer Contact Form!</h1>
 
-    <form>
+    <c:if test="${isErrMsgsPresent}">
+        <div>
+                ${errorMessages}
+        </div>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/ContactUs" method="post">
         <div class="form-group">
             <label for="fullNameInput">*Name</label>
-            <input type="text" required class="form-control" id="fullNameInput" aria-describedby="fullName"
-                   placeholder="e.g John Smith" name="fullName">
+            <input type="text" class="form-control" id="fullNameInput" aria-describedby="fullName"
+                   placeholder="e.g John Smith" name="fullName" value="${customerMessage.name}">
             <small id="fullName" class="form-text text-muted">Enter your full name.</small>
         </div>
 
@@ -53,35 +62,42 @@
             <label>*Gender</label><br>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genderRadioOptions" id="maleSelectOption"
-                       value="option1">
+                <input class="form-check-input" type="radio" name="gender" id="maleSelectOption"
+                       value="male" ${customerMessage.gender.equals("male") ? "checked" : ""}>
                 <label class="form-check-label" for="maleSelectOption">Male</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genderRadioOptions" id="femaleSelectOption"
-                       value="option2">
+                <input class="form-check-input" type="radio" name="gender"  id="femaleSelectOption"
+                       value="female" ${customerMessage.gender.equals("female") ? "checked" : ""}>
                 <label class="form-check-label" for="femaleSelectOption">Female</label>
             </div>
         </div>
 
         <div class="form-group">
             <label for="categoryOption">*Category</label>
-
-            <select class="form-control" id="categoryOption" name="categoryOption">
+            ${customerMessage.category}
+            <select class="form-control" id="categoryOption" name="category">
                 <option value="">Select</option>
-                <option value="feedback">Feedback</option>
-                <option value="inquiry">Inquiry</option>
-                <option value="complain">Complain</option>
+                <option value="feedback" ${customerMessage.category.equals("feedback")? "selected" : ""}>Feedback</option>
+                <option value="inquiry" ${customerMessage.category.equals("inquiry")? "selected" : ""}>Inquiry</option>
+                <option value="complain" ${customerMessage.category.equals("complain")? "selected" : ""}>Complain</option>
             </select>
         </div>
         <div class="form-group">
             <label for="messageTextArea">*Message</label>
-            <textarea required class="form-control" id="messageTextArea" rows="3" name="message"></textarea>
+            <textarea class="form-control" id="messageTextArea" rows="3"
+                      name="message">${customerMessage.message}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
 
+
+    <div style="padding: 2%;">
+
+        <span style="float: left;">Hit Count cor this page: ${(hitCount != null) ? hitCount : "--"}</span>
+        <span style="float: right;">Total Hit Count for the entire WebApp: ${(totalHitCount != null) ? totalHitCount : "--"} </span>
+    </div>
 </div>
 
 <!-- Optional JavaScript -->
