@@ -15,6 +15,7 @@ public class ContactUs extends HttpServlet {
     private synchronized int incrHitCount() {
         return this.hitCount++;
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         incrHitCount();
@@ -28,20 +29,20 @@ public class ContactUs extends HttpServlet {
         String message = request.getParameter("message");
 
 
-        String name = fullName != null && !fullName.equals("")? fullName : "";
-        String messageValue = message != null && !message.equals("")? message.trim() : "";
+        String name = fullName != null && !fullName.equals("") ? fullName : "";
+        String messageValue = message != null && !message.equals("") ? message.trim() : "";
 
         // category data
         String isFeedbackEmpty = category != null && category.equals("feedback") ? "selected" : "";
         String isInquiryEmpty = category != null && category.equals("inquiry") ? "selected" : "";
-        String isComplainEmpty = category != null &&  category.equals("complain") ? "selected" : "";
+        String isComplainEmpty = category != null && category.equals("complain") ? "selected" : "";
 
         //gender data
-        String isMaleSelected = gender != null && gender.equals("male")? "checked": "";
-        String isFemaleSelected = gender != null && gender.equals("female")? "checked": "";
+        String isMaleSelected = gender != null && gender.equals("male") ? "checked" : "";
+        String isFemaleSelected = gender != null && gender.equals("female") ? "checked" : "";
 
         Object objTotalHitCount = getServletContext().getAttribute("totalHitCount");
-        String totalHitCount = (objTotalHitCount != null) ? ((Integer)objTotalHitCount).toString() : "--";
+        String totalHitCount = (objTotalHitCount != null) ? ((Integer) objTotalHitCount).toString() : "--";
 
         out.println("<!doctype html>");
         out.println("<html lang=\"en\">");
@@ -122,15 +123,15 @@ public class ContactUs extends HttpServlet {
         out.println("");
         out.println("            <select class=\"form-control\" id=\"categoryOption\" name=\"category\">");
         out.println("                <option value=\"\">Select</option>");
-        out.println("                <option value=\"feedback\" " +isFeedbackEmpty + ">Feedback</option>");
-        out.println("                <option value=\"inquiry\" " + isInquiryEmpty+ ">Inquiry</option>");
+        out.println("                <option value=\"feedback\" " + isFeedbackEmpty + ">Feedback</option>");
+        out.println("                <option value=\"inquiry\" " + isInquiryEmpty + ">Inquiry</option>");
         out.println("                <option value=\"complain\" " + isComplainEmpty + ">Complain</option>");
         out.println("            </select>");
         out.println("        </div>");
         out.println("        <div class=\"form-group\">");
         out.println("            <label for=\"messageTextArea\">*Message</label>");
 
-        out.println("            <textarea class=\"form-control\" id=\"messageTextArea\" name=\"message\" rows=\"3\" > " + messageValue+" </textarea>");
+        out.println("            <textarea class=\"form-control\" id=\"messageTextArea\" name=\"message\" rows=\"3\" > " + messageValue + " </textarea>");
 
         out.println("        </div>");
         out.println("");
@@ -139,8 +140,8 @@ public class ContactUs extends HttpServlet {
         out.println("");
         out.println("");
         out.println("   <div style=\"padding: 2%;\">");
-        out.println("       <span style=\"float: left;\">Hit Count cor this page:" + this.hitCount+ " </span>");
-        out.println("        <span style=\"float: right;\">Total Hit Count for the entire WebApp: " +totalHitCount+"</span>");
+        out.println("       <span style=\"float: left;\">Hit Count cor this page:" + this.hitCount + " </span>");
+        out.println("        <span style=\"float: right;\">Total Hit Count for the entire WebApp: " + totalHitCount + "</span>");
         out.println("   </div>");
         out.println("</div>");
         out.println("");
