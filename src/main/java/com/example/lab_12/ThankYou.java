@@ -9,8 +9,16 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ThankYou", value = "/ThankYou")
 public class ThankYou extends HttpServlet {
+    private int hitCount;
+
+    private synchronized int incrementHitCount() {
+        return this.hitCount++;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        incrementHitCount();
+
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
@@ -19,6 +27,9 @@ public class ThankYou extends HttpServlet {
         String gender = request.getParameter("gender");
         String category = request.getParameter("category");
         String message = request.getParameter("message");
+
+        Object objTotalHitCount = getServletContext().getAttribute("totalHitCount");
+        String totalHitCount = (objTotalHitCount != null) ? ((Integer)objTotalHitCount).toString() : "--";
 
         out.println("<!doctype html>");
         out.println("<html lang=\"en\">");
@@ -76,10 +87,14 @@ public class ThankYou extends HttpServlet {
         out.println("      <h4 class=\"card-subtitle mb-2 text-muted\">Category: " + category +"</h4>");
         out.println("      <h4 class=\"card-text\">Message: " + message +"</h4>");
         out.println("");
-        out.println("      <p>Please feel free to <a href=\"/ContactUs\">contact us</a> again</p>");
+        out.println("      <p>Please feel free to <a href=\"ContactUs\">contact us</a> again</p>");
         out.println("    </div>");
         out.println("  </div>");
-        out.println("</div>");
+        out.println("   <div style=\"padding: 2%;\">");
+        out.println("       <span style=\"float: left;\">Hit Count cor this page:" + this.hitCount+ " </span>");
+        out.println("        <span style=\"float: right;\">Total Hit Count for the entire WebApp: " +totalHitCount+"</span>");
+        out.println("   </div>");
+        out.println("   </div>");
         out.println("");
         out.println("<!-- Optional JavaScript -->");
         out.println("<!-- jQuery first, then Popper.js, then Bootstrap JS -->");

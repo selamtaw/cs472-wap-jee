@@ -19,7 +19,7 @@ public class ContactUsValidator extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String gender = request.getParameter("gender");
         String category = request.getParameter("category");
-        String message = request.getParameter("message");
+        String message = request.getParameter("message").trim();
 
         String errorMessage = "";
 

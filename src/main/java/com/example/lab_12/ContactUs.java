@@ -10,9 +10,14 @@ import java.io.PrintWriter;
 @WebServlet(name = "ContactUs", value = "/ContactUs")
 public class ContactUs extends HttpServlet {
 
+    private int hitCount;
 
+    private synchronized int incrHitCount() {
+        return this.hitCount++;
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        incrHitCount();
         response.setContentType("text/html");
 
         // Hello
@@ -24,7 +29,7 @@ public class ContactUs extends HttpServlet {
 
 
         String name = fullName != null && !fullName.equals("")? fullName : "";
-        String messageValue = message != null && !message.equals("")? message : "";
+        String messageValue = message != null && !message.equals("")? message.trim() : "";
 
         // category data
         String isFeedbackEmpty = category != null && category.equals("feedback") ? "selected" : "";
@@ -34,6 +39,9 @@ public class ContactUs extends HttpServlet {
         //gender data
         String isMaleSelected = gender != null && gender.equals("male")? "checked": "";
         String isFemaleSelected = gender != null && gender.equals("female")? "checked": "";
+
+        Object objTotalHitCount = getServletContext().getAttribute("totalHitCount");
+        String totalHitCount = (objTotalHitCount != null) ? ((Integer)objTotalHitCount).toString() : "--";
 
         out.println("<!doctype html>");
         out.println("<html lang=\"en\">");
@@ -130,6 +138,10 @@ public class ContactUs extends HttpServlet {
         out.println("    </form>");
         out.println("");
         out.println("");
+        out.println("   <div style=\"padding: 2%;\">");
+        out.println("       <span style=\"float: left;\">Hit Count cor this page:" + this.hitCount+ " </span>");
+        out.println("        <span style=\"float: right;\">Total Hit Count for the entire WebApp: " +totalHitCount+"</span>");
+        out.println("   </div>");
         out.println("</div>");
         out.println("");
         out.println("<!-- Optional JavaScript -->");
