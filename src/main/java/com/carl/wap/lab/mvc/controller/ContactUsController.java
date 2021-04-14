@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "ContactUs", value = "/ContactUs")
 public class ContactUsController extends HttpServlet {
@@ -64,6 +66,8 @@ public class ContactUsController extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/contact-us.jsp");
             requestDispatcher.forward(request, response);
         } else {
+            String currDateTime = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy - h:mm:ss a zzzz"));
+            request.setAttribute("currDateTime", currDateTime);
             request.setAttribute("customerMessage", customerMessage);
             RequestDispatcher dispatcher = request.getRequestDispatcher(
                     "/WEB-INF/view/thankyou.jsp");

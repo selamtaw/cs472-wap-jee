@@ -46,7 +46,7 @@
 
     <div class="card">
         <div>
-            <p style="float: right;padding: 2%;">september, 26, 1994</p>
+            <p style="float: right;padding: 2%;">${currDateTime}</p>
         </div>
 
         <div class="alert alert-success" role="alert">
