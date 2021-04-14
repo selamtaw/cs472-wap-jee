@@ -31,8 +31,9 @@ public class ContactUsController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        incrHitCount();
 
-        String fullName = request.getParameter("fullName");
+        String fullName = request.getParameter("fullName").trim();
         String gender = request.getParameter("gender");
         String category = request.getParameter("category");
         String message = request.getParameter("message").trim();
@@ -53,6 +54,7 @@ public class ContactUsController extends HttpServlet {
             errorMessage += "<div class=\"alert alert-danger\" role=\"alert\">Message is Missing</div>";
         }
 
+        request.setAttribute("hitCount", hitCount);
 
         if (!errorMessage.equals("")) {
             request.setAttribute("isErrMsgsPresent", true);

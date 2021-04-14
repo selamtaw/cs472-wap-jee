@@ -23,9 +23,12 @@ public class ThankYou extends HttpServlet {
         response.setContentType("text/html");
 
         CustomerMessage customerMessage = (CustomerMessage) request.getAttribute("customerMessage");
-
+        if(customerMessage == null){
+            customerMessage = new CustomerMessage("n/a","n/a","n/a","n/a");
+        }
         request.setAttribute("customerMessage", customerMessage);
-        request.setAttribute("hitCount", hitCount);
+        request.setAttribute("hitCount", this.hitCount);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/WEB-INF/view/thankyou.jsp");
         dispatcher.forward(request, response);

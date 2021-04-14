@@ -63,7 +63,6 @@
 
     </div>
     <div style="padding: 2%;">
-        hit count = ${hitCount}
         <span style="float: left;">Hit Count per this page: ${(hitCount != null) ? hitCount : "n/a"}</span>
         <span style="float: right;">Total Hit Count for the entire WebApp: ${(totalHitCount != null) ? totalHitCount : "n/a"} </span>
     </div>

@@ -75,7 +75,6 @@
 
         <div class="form-group">
             <label for="categoryOption">*Category</label>
-            ${customerMessage.category}
             <select class="form-control" id="categoryOption" name="category">
                 <option value="">Select</option>
                 <option value="feedback" ${customerMessage.category.equals("feedback")? "selected" : ""}>Feedback</option>
